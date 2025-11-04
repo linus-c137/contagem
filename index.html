@@ -1,247 +1,562 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Eu Te Amo</title>
+    <title>Sam & John</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="icon.png.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            /* Paleta Azul Gel */
+            --bg-deep: #0f1424;
+            --accent-primary: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-glow: #60a5fa;
+            
+            /* Paleta Vermelha Gel */
+            --accent-red: #dc2626;
+            --accent-red-light: #ef4444;
+            --accent-red-glow: #f87171;
+            
+            /* Cores de Texto */
+            --text-light: rgba(255, 255, 255, 0.95);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            
+            /* Transições Suaves */
+            --transition-slow: 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-medium: 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-fast: 300ms ease;
+            
+            /* Variáveis de estado */
+            --accent-color: var(--accent-primary);
+            --accent-glow-color: var(--accent-glow);
+            
+            transition: --accent-color var(--transition-slow), --accent-glow-color var(--transition-slow);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --baby-blue: #A7EBF2;
-            --soft-blue: #54ACBF;
-            --medium-blue: #26658C;
-            --deep-blue: #023859;
-            --navy-blue: #011C40;
-            --wine-red: #8B2635;
-            --deep-wine: #591C2B;
-            --soft-wine: #B23A48;
-            --transition: all 0.3s ease;
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--navy-blue) 0%, var(--deep-wine) 100%);
-            color: var(--baby-blue);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f1424 0%, #1e293b 100%);
+            color: var(--text-light);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px 15px;
+            padding: 2rem 1rem;
             overflow-x: hidden;
             position: relative;
-            line-height: 1.5;
+        }
+
+        /* Efeito de Fundo Gel com Partículas */
+        .gel-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 85% 75%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0f1424 0%, #1e293b 100%);
+            animation: gelFloat 25s ease-in-out infinite alternate;
+        }
+
+        /* Partículas flutuantes */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: particleFloat 20s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes gelFloat {
+            0% { 
+                background-position: 0% 0%, 100% 100%, 0% 0%;
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                background-position: 2% 2%, 98% 98%, 0% 0%;
+                filter: hue-rotate(5deg);
+            }
+            100% { 
+                background-position: -2% -2%, 102% 102%, 0% 0%;
+                filter: hue-rotate(0deg);
+            }
         }
 
         .container {
+            max-width: 900px;
             width: 100%;
-            max-width: 500px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 40px;
+            gap: 3rem;
+            animation: gentleRise 2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes gentleRise {
+            0% { opacity: 0; transform: translateY(40px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .profiles {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .profile {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: profileFloat 8s ease-in-out infinite;
+            overflow: hidden;
             z-index: 1;
+        }
+
+        .profile.sam {
+            animation-delay: 0s;
+            transform: translateX(15px);
+            z-index: 2;
+        }
+
+        .profile.john {
+            animation-delay: 2s;
+            transform: translateX(-15px);
+            z-index: 1;
+        }
+
+        @keyframes profileFloat {
+            0%, 100% { 
+                transform: translateY(0) translateX(15px) rotate(0deg) scale(1);
+            }
+            33% { 
+                transform: translateY(-10px) translateX(15px) rotate(1deg) scale(1.02);
+            }
+            66% { 
+                transform: translateY(-5px) translateX(15px) rotate(-0.5deg) scale(1.01);
+            }
+        }
+
+        .profile.john {
+            animation-name: profileFloatJohn;
+        }
+
+        @keyframes profileFloatJohn {
+            0%, 100% { 
+                transform: translateY(0) translateX(-15px) rotate(0deg) scale(1);
+            }
+            33% { 
+                transform: translateY(-10px) translateX(-15px) rotate(-1deg) scale(1.02);
+            }
+            66% { 
+                transform: translateY(-5px) translateX(-15px) rotate(0.5deg) scale(1.01);
+            }
+        }
+
+        .profile-inner {
+            width: 144px;
+            height: 144px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: all var(--transition-medium);
+        }
+
+        .profile:hover .profile-image {
+            transform: scale(1.05);
+        }
+
+        .heart-connector {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            animation: gelHeartbeat 4s ease-in-out infinite;
+            z-index: 3;
+            transition: color var(--transition-slow);
+            filter: drop-shadow(0 0 10px var(--accent-glow-color));
+        }
+
+        @keyframes gelHeartbeat {
+            0%, 100% { 
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px var(--accent-glow-color));
+            }
+            15% { 
+                transform: scale(1.15);
+                filter: drop-shadow(0 0 20px var(--accent-glow-color));
+            }
+            30% { 
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px var(--accent-glow-color));
+            }
+            45% { 
+                transform: scale(1.08);
+                filter: drop-shadow(0 0 15px var(--accent-glow-color));
+            }
+            60% { 
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px var(--accent-glow-color));
+            }
         }
 
         header {
             text-align: center;
-            margin-bottom: 10px;
-            animation: fadeInDown 0.8s ease-out;
+            margin-bottom: 1rem;
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
             font-weight: 500;
-            color: var(--baby-blue);
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(167, 235, 242, 0.3);
+            letter-spacing: 0.2rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            display: inline-block;
+            animation: titleGelGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes titleGelGlow {
+            0%, 100% { 
+                text-shadow: 
+                    0 2px 20px rgba(0, 0, 0, 0.4),
+                    0 0 0px var(--accent-glow-color);
+            }
+            50% { 
+                text-shadow: 
+                    0 2px 20px rgba(0, 0, 0, 0.4),
+                    0 0 30px var(--accent-glow-color),
+                    0 0 40px var(--accent-glow-color);
+            }
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--accent-color), 
+                transparent);
+            border-radius: 2px;
+            transition: background var(--transition-slow);
+            animation: lineFlow 3s ease-in-out infinite;
         }
 
         h2 {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             font-weight: 400;
-            font-size: 1.3rem;
-            color: var(--soft-blue);
-            margin-top: 15px;
-            opacity: 0.9;
+            font-size: 1.6rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            animation: subtitleGelFloat 8s ease-in-out infinite;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .counters {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 3rem;
             width: 100%;
+            max-width: 800px;
         }
 
         .time-counter {
-            background: rgba(1, 28, 64, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px 20px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.12) 0%, 
+                rgba(255, 255, 255, 0.06) 100%);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+            padding: 2.5rem;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(167, 235, 242, 0.15);
-            animation: slideInUp 0.8s ease-out 0.2s both;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-medium);
+            animation: cardGelFloat 10s ease-in-out infinite;
         }
 
         .time-counter h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 25px;
-            color: var(--baby-blue);
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            font-weight: 400;
+            letter-spacing: 0.08rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .bubbles-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            justify-items: center;
+        .time-display {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
         }
 
-        .bubble {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: rgba(2, 56, 89, 0.5);
-            backdrop-filter: blur(8px);
+        .time-bubble {
             display: flex;
             flex-direction: column;
             align-items: center;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.08) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 50%;
+            width: 110px;
+            height: 110px;
             justify-content: center;
             box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.2),
-                inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(167, 235, 242, 0.15);
-            transition: var(--transition);
+                0 8px 25px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all var(--transition-medium);
+            animation: bubbleGelFloat 9s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
         }
 
+        .time-bubble:nth-child(1) { animation-delay: 0s; }
+        .time-bubble:nth-child(2) { animation-delay: 1s; }
+        .time-bubble:nth-child(3) { animation-delay: 2s; }
+        .time-bubble:nth-child(4) { animation-delay: 3s; }
+
         .time-value {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2rem;
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
-            color: var(--baby-blue);
-            margin-bottom: 5px;
+            color: var(--text-light);
+            font-size: 2rem;
+            line-height: 1;
+            z-index: 2;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         }
 
         .time-label {
-            font-family: 'Raleway', sans-serif;
             font-size: 0.85rem;
-            color: var(--soft-blue);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            letter-spacing: 0.04rem;
+            z-index: 2;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         .love-counter {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            animation: slideInUp 0.8s ease-out 0.4s both;
+            gap: 2.5rem;
+            position: relative;
         }
 
         .love-button {
-            width: 180px;
-            height: 180px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
-            background: 
-                radial-gradient(circle at 30% 30%, rgba(139, 38, 53, 0.3) 0%, rgba(38, 101, 140, 0.4) 100%),
-                rgba(38, 101, 140, 0.3);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.18) 0%, 
+                rgba(255, 255, 255, 0.08) 100%);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: var(--transition);
             box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.25),
-                inset 0 1px 1px rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(167, 235, 242, 0.2);
+                0 15px 50px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+                0 0 40px var(--accent-glow-color);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all var(--transition-slow);
+            position: relative;
+            overflow: hidden;
+            animation: loveButtonGelGlow 8s ease-in-out infinite alternate;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
 
+        .love-button:active {
+            transform: scale(0.98);
+        }
+
+        .love-button.undo-mode {
+            background: linear-gradient(135deg, 
+                rgba(220, 38, 38, 0.25) 0%, 
+                rgba(255, 255, 255, 0.08) 100%);
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+                0 0 40px var(--accent-red-glow);
+        }
+
         .love-count {
-            font-family: 'Poppins', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 600;
-            color: var(--baby-blue);
-            letter-spacing: 1px;
-            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 5rem;
+            color: var(--accent-color);
+            text-shadow: 
+                0 2px 20px rgba(0, 0, 0, 0.5),
+                0 0 20px var(--accent-glow-color);
+            letter-spacing: 0.1rem;
+            transition: all var(--transition-slow);
+            cursor: pointer;
+            user-select: none;
+            z-index: 2;
+            animation: countGelBreath 5s ease-in-out infinite;
         }
 
         .love-label {
-            font-family: 'Raleway', sans-serif;
-            font-size: 1.1rem;
-            color: var(--soft-blue);
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            color: var(--text-muted);
             text-align: center;
-            max-width: 280px;
+            max-width: 320px;
+            line-height: 1.6;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .button-hint {
-            font-family: 'Raleway', sans-serif;
-            font-size: 0.8rem;
-            color: var(--soft-blue);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-muted);
             opacity: 0.7;
-            margin-top: 5px;
+            margin-top: -1rem;
         }
 
-        footer {
-            margin-top: 30px;
-            text-align: center;
-            animation: fadeIn 0.8s ease-out 0.6s both;
+        /* Player do Spotify */
+        .spotify-player {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 2rem;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all var(--transition-medium);
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.12) 0%, 
+                rgba(255, 255, 255, 0.06) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .footer-text {
-            font-family: 'Raleway', sans-serif;
-            font-size: 1rem;
-            color: var(--baby-blue);
-            opacity: 0.8;
-            font-weight: 300;
+        .spotify-player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
         }
 
-        /* Animações otimizadas */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .player-header {
+            padding: 1.2rem;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .player-header i {
+            color: #1DB954;
+            font-size: 1.5rem;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .player-header h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .player-iframe {
+            width: 100%;
+            height: 152px;
+            border: none;
         }
 
         .pulse {
@@ -251,15 +566,12 @@
         @keyframes pulse {
             0% {
                 transform: scale(1);
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             }
             50% {
                 transform: scale(1.05);
-                box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
             }
             100% {
                 transform: scale(1);
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             }
         }
 
@@ -270,58 +582,83 @@
         @keyframes milestone {
             0% {
                 transform: scale(1);
-                background: rgba(38, 101, 140, 0.3);
+                background: linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.18) 0%, 
+                    rgba(255, 255, 255, 0.08) 100%);
             }
             25% {
                 transform: scale(1.1);
-                background: rgba(139, 38, 53, 0.4);
+                background: linear-gradient(135deg, 
+                    rgba(220, 38, 38, 0.3) 0%, 
+                    rgba(255, 255, 255, 0.08) 100%);
             }
             50% {
                 transform: scale(1.05);
-                background: rgba(38, 101, 140, 0.5);
+                background: linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.25) 0%, 
+                    rgba(255, 255, 255, 0.1) 100%);
             }
             75% {
                 transform: scale(1.08);
-                background: rgba(139, 38, 53, 0.45);
+                background: linear-gradient(135deg, 
+                    rgba(220, 38, 38, 0.25) 0%, 
+                    rgba(255, 255, 255, 0.09) 100%);
             }
             100% {
                 transform: scale(1);
-                background: rgba(38, 101, 140, 0.3);
+                background: linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.18) 0%, 
+                    rgba(255, 255, 255, 0.08) 100%);
             }
         }
 
-        /* Estados de interação */
-        .love-button:active {
-            transform: scale(0.95);
+        .floating-heart {
+            position: fixed;
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            pointer-events: none;
+            z-index: 1001;
+            opacity: 0;
+            transition: color var(--transition-slow);
+            filter: drop-shadow(0 0 15px var(--accent-glow-color));
         }
 
-        .bubble:nth-child(1) .time-value,
-        .bubble:nth-child(3) .time-value {
-            color: var(--soft-wine);
+        .broken-heart {
+            position: fixed;
+            font-size: 2rem;
+            color: var(--accent-red);
+            pointer-events: none;
+            z-index: 1001;
+            opacity: 0;
+            filter: drop-shadow(0 0 10px var(--accent-red-glow));
         }
 
-        /* Melhorias de desempenho */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Responsividade aprimorada */
-        @media (max-width: 400px) {
+        @media (max-width: 768px) {
             h1 {
-                font-size: 2.3rem;
+                font-size: 3rem;
             }
             
-            h2 {
-                font-size: 1.1rem;
+            .profiles {
+                gap: 1.5rem;
             }
             
-            .bubble {
-                width: 100px;
-                height: 100px;
+            .profile {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .profile-inner {
+                width: 124px;
+                height: 124px;
+            }
+            
+            .heart-connector {
+                font-size: 2rem;
+            }
+            
+            .time-bubble {
+                width: 95px;
+                height: 95px;
             }
             
             .time-value {
@@ -329,96 +666,141 @@
             }
             
             .love-button {
-                width: 150px;
-                height: 150px;
+                width: 190px;
+                height: 190px;
             }
             
             .love-count {
-                font-size: 2.8rem;
-            }
-            
-            .love-label {
-                font-size: 1rem;
+                font-size: 4.2rem;
             }
         }
 
-        @media (max-width: 320px) {
-            .bubbles-container {
-                grid-template-columns: 1fr;
-                gap: 12px;
+        @media (max-width: 480px) {
+            .time-display {
+                gap: 1.2rem;
             }
             
-            .bubble {
-                width: 140px;
-                height: 140px;
+            .time-bubble {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .time-value {
+                font-size: 1.5rem;
+            }
+            
+            .love-button {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .love-count {
+                font-size: 3.5rem;
             }
         }
 
-        /* Otimizações de toque */
-        @media (hover: none) {
-            .love-button:hover {
-                transform: none;
-            }
-            
-            .bubble:hover {
-                transform: none;
+        /* Acessibilidade - Prefers Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
+    <div class="gel-background"></div>
+    <div class="particles" id="particles"></div>
+
     <div class="container">
+        <div class="profiles">
+            <div class="profile sam">
+                <div class="profile-inner">
+                    <!-- Substitua "perfil1.jpg" pelo caminho correto da sua imagem -->
+                    <img src="perfil1.jpg" alt="Sam" class="profile-image" onerror="this.src='https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80'">
+                </div>
+            </div>
+            <div class="heart-connector">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="profile john">
+                <div class="profile-inner">
+                    <!-- Substitua "perfil2.jpg" pelo caminho correto da sua imagem -->
+                    <img src="perfil2.jpg" alt="John" class="profile-image" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80'">
+                </div>
+            </div>
+        </div>
+        
         <header>
             <h1>Sam & John</h1>
-            <h2>contagem de dias do meu primeiro primeiro "Eu te amo"</h2>
+            <h2>Dois lesados</h2>
         </header>
         
         <div class="counters">
             <div class="time-counter">
-                <h3></h3>
-                <div class="bubbles-container">
-                    <div class="bubble">
-                        <div class="time-value" id="days">0</div>
-                        <div class="time-label">dias</div>
+                <h3>tempo desde o meu primeiro "Eu te amo"</h3>
+                <div class="time-display">
+                    <div class="time-bubble">
+                        <span class="time-value" id="days">0</span>
+                        <span class="time-label">dias</span>
                     </div>
-                    <div class="bubble">
-                        <div class="time-value" id="hours">0</div>
-                        <div class="time-label">horas</div>
+                    <div class="time-bubble">
+                        <span class="time-value" id="hours">0</span>
+                        <span class="time-label">horas</span>
                     </div>
-                    <div class="bubble">
-                        <div class="time-value" id="minutes">0</div>
-                        <div class="time-label">minutos</div>
+                    <div class="time-bubble">
+                        <span class="time-value" id="minutes">0</span>
+                        <span class="time-label">minutos</span>
                     </div>
-                    <div class="bubble">
-                        <div class="time-value" id="seconds">0</div>
-                        <div class="time-label">segundos</div>
+                    <div class="time-bubble">
+                        <span class="time-value" id="seconds">0</span>
+                        <span class="time-label">segundos</span>
                     </div>
                 </div>
             </div>
             
             <div class="love-counter">
                 <div class="love-button" id="loveButton">
-                    <div class="love-count" id="loveCount">0</div>
+                    <span class="love-count" id="loveCount">0</span>
                 </div>
-                <div class="love-label">Toque para adicionar um "eu te amo"</div>
+                <div class="love-label">Clique para adicionar um "eu te amo"</div>
                 <div class="button-hint">Segure para diminuir</div>
             </div>
         </div>
         
+        <!-- Player do Spotify -->
+        <div class="spotify-player">
+            <div class="player-header">
+                <i class="fab fa-spotify"></i>
+                <h4>a música que toca quando penso em você</h4>
+            </div>
+            <iframe class="player-iframe" src="https://open.spotify.com/embed/track/1DLKuppSYytOuxhtI6KBGu?utm_source=generator&theme=0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+        
         <footer>
-            <p class="footer-text">direi eu te amo incansáveis vezes.</p>
+            <p style="font-family: 'Dancing Script', cursive; font-size: 28px; color: #ffffff; text-align: center;">
+  “A distância impede o toque, mas não apaga o sentimento.”<br> 
+  <span style="font-size: 20px;">— Nicholas Sparks</span>
+</p>
         </footer>
     </div>
 
     <script>
-        // Data da declaração: 20 de outubro de 2025, às 07:32
-        const declarationDate = new Date('2025-10-20T19:32:00');
+        // Data da declaração: 20 de outubro de 2025, às 19:32
+        const declarationDate = new Date('October 20, 2025 19:32:00').getTime();
         
-        // Elementos do DOM
-        const daysElement = document.getElementById('days');
-        const hoursElement = document.getElementById('hours');
-        const minutesElement = document.getElementById('minutes');
-        const secondsElement = document.getElementById('seconds');
+        // Mapeamento de cores para diferentes níveis do contador
+        const colorMap = {
+            10: { color: '#dc2626', glow: '#ef4444' },
+            20: { color: '#b91c1c', glow: '#dc2626' },
+            30: { color: '#991b1b', glow: '#b91c1c' },
+            50: { color: '#7f1d1d', glow: '#991b1b' },
+            100: { color: '#450a0a', glow: '#7f1d1d' },
+            default: { color: '#2563eb', glow: '#3b82f6' }
+        };
+        
+        // Elementos DOM
         const loveButton = document.getElementById('loveButton');
         const loveCountElement = document.getElementById('loveCount');
         
@@ -426,27 +808,71 @@
         let loveCount = localStorage.getItem('loveCount') ? parseInt(localStorage.getItem('loveCount')) : 0;
         let pressTimer;
         let isPressing = false;
+        let decrementInterval;
         
         // Inicialização
         loveCountElement.textContent = loveCount;
+        checkColorThreshold();
+        createParticles();
         
-        // Atualiza contador de tempo (otimizado)
-        function updateTimeCounter() {
-            const now = Date.now();
-            const timeDifference = now - declarationDate.getTime();
+        // Cria partículas flutuantes
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
             
-            if (timeDifference > 0) {
-                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
                 
-                daysElement.textContent = days;
-                hoursElement.textContent = hours.toString().padStart(2, '0');
-                minutesElement.textContent = minutes.toString().padStart(2, '0');
-                secondsElement.textContent = seconds.toString().padStart(2, '0');
+                // Tamanho aleatório
+                const size = Math.random() * 4 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posição inicial aleatória
+                particle.style.left = `${Math.random() * 100}%`;
+                
+                // Atraso de animação aleatório
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                
+                // Duração de animação aleatória
+                const duration = 15 + Math.random() * 15;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
             }
         }
+        
+        // Atualiza o contador de tempo
+        function updateTimeCounter() {
+            const now = new Date().getTime();
+            const timePassed = now - declarationDate;
+            
+            // Se a data ainda não chegou, mostra zeros
+            if (timePassed < 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                return;
+            }
+            
+            // Calcula dias, horas, minutos e segundos
+            const days = Math.floor(timePassed / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timePassed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timePassed % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timePassed % (1000 * 60)) / 1000);
+            
+            // Atualiza os elementos HTML
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+        
+        // Inicializa o contador de tempo
+        updateTimeCounter();
+        setInterval(updateTimeCounter, 1000);
         
         // Verifica se é um marco (10, 20, 30...)
         function isMilestone(num) {
@@ -458,13 +884,23 @@
             loveCount++;
             updateLoveCount();
             
+            // Cria coração flutuante
+            createFloatingHeart();
+            
             if (isMilestone(loveCount)) {
                 loveButton.classList.add('milestone');
                 setTimeout(() => loveButton.classList.remove('milestone'), 1000);
+                activateSpecialEffects();
             } else {
                 loveButton.classList.add('pulse');
                 setTimeout(() => loveButton.classList.remove('pulse'), 500);
             }
+            
+            // Verifica e aplica mudanças de cor
+            checkColorThreshold();
+            
+            // Adiciona efeito sonoro suave
+            playClickSound();
         }
         
         // Decrementa contagem
@@ -472,8 +908,18 @@
             if (loveCount > 0) {
                 loveCount--;
                 updateLoveCount();
+                
+                // Cria coração partido
+                createBrokenHeart();
+                
                 loveButton.classList.add('pulse');
                 setTimeout(() => loveButton.classList.remove('pulse'), 500);
+                
+                // Verifica e aplica mudanças de cor
+                checkColorThreshold();
+                
+                // Adiciona efeito sonoro
+                playUndoSound();
             }
         }
         
@@ -483,30 +929,225 @@
             localStorage.setItem('loveCount', loveCount);
         }
         
-        // Controle de pressionamento longo
+        // Função para verificar e aplicar mudanças de cor
+        function checkColorThreshold() {
+            let colors = colorMap.default;
+            
+            // Verificar se o contador atingiu algum threshold
+            for (const threshold in colorMap) {
+                if (loveCount >= parseInt(threshold)) {
+                    colors = colorMap[threshold];
+                }
+            }
+            
+            // Aplicar as novas cores
+            setAccentColors(colors.color, colors.glow);
+        }
+        
+        // Função para definir as cores de destaque
+        function setAccentColors(color, glow) {
+            document.documentElement.style.setProperty('--accent-color', color);
+            document.documentElement.style.setProperty('--accent-glow-color', glow);
+        }
+        
+        // Controle de pressionamento longo (EXATAMENTE como no código fornecido)
         function startPress() {
             isPressing = true;
+            loveButton.classList.add('undo-mode');
+            
             pressTimer = setTimeout(() => {
                 if (isPressing) {
                     decrementCount();
-                    const interval = setInterval(() => {
+                    // Inicia intervalo para decrementar continuamente
+                    decrementInterval = setInterval(() => {
                         if (isPressing) {
                             decrementCount();
                         } else {
-                            clearInterval(interval);
+                            clearInterval(decrementInterval);
                         }
-                    }, 200);
+                    }, 200); // Diminui a cada 400ms enquanto segura
                 }
-            }, 600);
+            }, 600); // Espera 700ms antes de começar a diminuir
         }
         
         function endPress() {
             isPressing = false;
+            loveButton.classList.remove('undo-mode');
             clearTimeout(pressTimer);
+            clearInterval(decrementInterval);
         }
         
-        // Event listeners otimizados
+        // Cria coração flutuante individual
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '<i class="fas fa-heart"></i>';
+            
+            // Posição inicial no centro do botão
+            const buttonRect = loveButton.getBoundingClientRect();
+            const startX = buttonRect.left + buttonRect.width / 2;
+            const startY = buttonRect.top + buttonRect.height / 2;
+            
+            heart.style.left = startX + 'px';
+            heart.style.top = startY + 'px';
+            heart.style.fontSize = (Math.random() * 1.8 + 1.2) + 'rem';
+            heart.style.transform = 'translate(-50%, -50%) scale(0)';
+            
+            document.body.appendChild(heart);
+            
+            // Animação do coração
+            const endX = startX + (Math.random() * 300 - 150);
+            const endY = startY - 200 - Math.random() * 100;
+            const rotation = Math.random() * 360;
+            const scale = 0.8 + Math.random() * 0.6;
+            
+            const animation = heart.animate([
+                { 
+                    transform: 'translate(-50%, -50%) scale(0) rotate(0deg)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(-50%, -50%) scale(1) rotate(0deg)',
+                    opacity: 1,
+                    offset: 0.1
+                },
+                { 
+                    transform: `translate(${endX - startX}px, ${endY - startY}px) scale(${scale}) rotate(${rotation}deg)`,
+                    opacity: 0.8
+                },
+                { 
+                    transform: `translate(${endX - startX}px, ${endY - startY - 80}px) scale(${scale * 0.6}) rotate(${rotation + 180}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: 4000,
+                easing: 'cubic-bezier(0.2, 0.8, 0.4, 1)'
+            });
+            
+            // Remove o coração após a animação
+            animation.onfinish = () => {
+                heart.remove();
+            };
+        }
+        
+        // Cria coração partido
+        function createBrokenHeart() {
+            const brokenHeart = document.createElement('div');
+            brokenHeart.className = 'broken-heart';
+            brokenHeart.innerHTML = '<i class="fas fa-heart-crack"></i>';
+            
+            // Posição inicial no centro do botão
+            const buttonRect = loveButton.getBoundingClientRect();
+            const startX = buttonRect.left + buttonRect.width / 2;
+            const startY = buttonRect.top + buttonRect.height / 2;
+            
+            brokenHeart.style.left = startX + 'px';
+            brokenHeart.style.top = startY + 'px';
+            brokenHeart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+            brokenHeart.style.transform = 'translate(-50%, -50%) scale(0)';
+            
+            document.body.appendChild(brokenHeart);
+            
+            // Animação do coração partido
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 100 + Math.random() * 100;
+            const endX = startX + Math.cos(angle) * distance;
+            const endY = startY + Math.sin(angle) * distance;
+            const rotation = Math.random() * 720 - 360;
+            
+            const animation = brokenHeart.animate([
+                { 
+                    transform: 'translate(-50%, -50%) scale(0) rotate(0deg)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(-50%, -50%) scale(1.2) rotate(0deg)',
+                    opacity: 1,
+                    offset: 0.1
+                },
+                { 
+                    transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0.8) rotate(${rotation}deg)`,
+                    opacity: 0.7
+                },
+                { 
+                    transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0.4) rotate(${rotation * 1.5}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: 2000,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // Remove o coração partido após a animação
+            animation.onfinish = () => {
+                brokenHeart.remove();
+            };
+        }
+        
+        // Ativa efeitos especiais para marcos
+        function activateSpecialEffects() {
+            // Cria múltiplos corações
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    createFloatingHeart();
+                }, i * 100);
+            }
+        }
+        
+        // Efeito sonoro no clique
+        function playClickSound() {
+            if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+                try {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    const audioContext = new AudioContextClass();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 523.25;
+                    gainNode.gain.value = 0.06;
+                    
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.8);
+                    oscillator.stop(audioContext.currentTime + 0.8);
+                } catch (e) {
+                    console.log('Áudio não suportado:', e);
+                }
+            }
+        }
+        
+        // Efeito sonoro ao desfazer
+        function playUndoSound() {
+            if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+                try {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    const audioContext = new AudioContextClass();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.type = 'triangle';
+                    oscillator.frequency.value = 349.23;
+                    gainNode.gain.value = 0.08;
+                    
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.4);
+                    oscillator.stop(audioContext.currentTime + 0.4);
+                } catch (e) {
+                    console.log('Áudio não suportado:', e);
+                }
+            }
+        }
+        
+        // Event listeners (EXATAMENTE como no código fornecido)
         loveButton.addEventListener('click', incrementCount);
+        
+        // Para touch
         loveButton.addEventListener('touchstart', startPress, { passive: true });
         loveButton.addEventListener('touchend', endPress);
         loveButton.addEventListener('touchcancel', endPress);
@@ -515,15 +1156,6 @@
         loveButton.addEventListener('mousedown', startPress);
         loveButton.addEventListener('mouseup', endPress);
         loveButton.addEventListener('mouseleave', endPress);
-        
-        // Inicialização
-        updateTimeCounter();
-        const timeInterval = setInterval(updateTimeCounter, 1000);
-        
-        // Cleanup para melhor performance
-        window.addEventListener('beforeunload', () => {
-            clearInterval(timeInterval);
-        });
     </script>
 </body>
 </html>
